@@ -5,11 +5,18 @@
 
   let allIssues = [];
   let currentTab = "all";
+  let searchTimeout = null;
+  let lastSearchQuery = "";
 
   const spinnerWrap = document.getElementById("spinnerWrap");
   const issuesGrid = document.getElementById("issuesGrid");
   const emptyState = document.getElementById("emptyState");
   const issueCountEl = document.getElementById("issueCount");
+  const searchInput = document.getElementById("searchInput");
+  const modalOverlay = document.getElementById("modalOverlay");
+  const modalTitle = document.getElementById("modalTitle");
+  const modalBody = document.getElementById("modalBody");
+  const modalClose = document.getElementById("modalClose");
 
   function formatDate(isoString) {
     const d = new Date(isoString);
@@ -205,5 +212,30 @@
     });
   })();
 
+  function initTabs() {
+    document.querySelectorAll(".tab").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        const tab = this.getAttribute("data-tab");
+        currentTab = tab;
+        document.querySelectorAll(".tab").forEach(function (b) {
+          b.classList.remove("active");
+          b.setAttribute(
+            "aria-selected",
+            b.getAttribute("data-tab") === tab ? "true" : "false",
+          );
+        });
+        this.classList.add("active");
+        this.setAttribute("aria-selected", "true");
+
+        if (lastSearchQuery) {
+          doSearch(lastSearchQuery);
+        } else {
+          renderCards(filterByTab(allIssues));
+        }
+      });
+    });
+  }
+
+  initTabs();
   loadIssues();
 })();
