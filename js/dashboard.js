@@ -6,12 +6,10 @@
   let allIssues = [];
   let currentTab = "all";
 
-
   const spinnerWrap = document.getElementById("spinnerWrap");
   const issuesGrid = document.getElementById("issuesGrid");
   const emptyState = document.getElementById("emptyState");
   const issueCountEl = document.getElementById("issueCount");
-  
 
   function formatDate(isoString) {
     const d = new Date(isoString);
@@ -127,6 +125,85 @@
       });
   }
 
+  //Modal Logic
+  function openModal(issue) {
+    modalTitle.textContent = issue.title;
+
+    const labelsHtml =
+      issue.labels && issue.labels.length
+        ? `<div class="modal-labels-list">
+            ${issue.labels
+              .map((label) => {
+                const slug = String(label || "")
+                  .toLowerCase()
+                  .replace(/[^a-z0-9]+/g, "-");
+
+                let cls = "issue-card-label";
+                if (slug) cls += ` label-${slug}`;
+
+                return `<span class="${cls}">${escapeHtml(label)}</span>`;
+              })
+              .join("")}
+          </div>`
+        : "—";
+
+    modalBody.innerHTML = `
+      <div class="modal-row flex items-center justify-left gap-2">
+        <span class="modal-label stat ${issue.status === "open" ? "open-stat" : "close-stat"}">
+          ${escapeHtml(issue.status)}
+        </span>
+
+        <span class="modal-label flex">
+        opened by ${escapeHtml(issue.author || "")} on ${formatDate(issue.createdAt)}
+        </span>
+        
+      </div>
+      
+      <div class="modal-row">
+        <span class="modal-label"></span>
+        ${labelsHtml}
+      </div>
+
+      <div class="modal-row">
+        <span class="modal-label"></span>
+        ${escapeHtml(issue.description || "")}
+      </div>
+  
+  
+      <div class="flex items-start justify-between bg-[#F8FAFC] py-2 border-rounded-lg">
+        <div class="modal-row w-1/2" >
+          <span class="modal-label">Assignee <br>
+            <span class="font-bold text-black">${escapeHtml(issue.assignee.toUpperCase().replace("_", " ") || "—")}</span>
+          </span>
+        </div>
+  
+        <div class="modal-row w-1/2">
+          <span class="modal-label ">
+          Priority <br>
+             <span class="${issue.priority} priority">${escapeHtml(issue.priority.toUpperCase() || "")}</span>
+          </span>
+        </div>
+      </div>
+  
+    `;
+
+    modalOverlay.hidden = false;
+    modalClose.focus();
+  }
+
+  function closeModal() {
+    modalOverlay.hidden = true;
+  }
+
+  (() => {
+    modalClose.addEventListener("click", closeModal);
+    modalOverlay.addEventListener("click", function (e) {
+      if (e.target === modalOverlay) closeModal();
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && !modalOverlay.hidden) closeModal();
+    });
+  })();
 
   loadIssues();
 })();
