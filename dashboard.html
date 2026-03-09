@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GitHub Issues Tracker</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="dashboard.css" />
+  </head>
+  <body class="dashboard-body">
+    <header class="navbar">
+      <div class="navbar-left">
+        <img
+          src="./assets/github-logo.png"
+          alt="GitHub"
+          class="navbar-logo"
+          width="40"
+          height="40"
+        />
+        <span class="navbar-title">GitHub Issues Tracker</span>
+      </div>
+
+      <div class="navbar-right">
+        <div class="search-wrap">
+          <span class="search-icon" aria-hidden="true">🔍</span>
+          <input
+            type="search"
+            id="searchInput"
+            class="search-input"
+            placeholder="Search issues..."
+            autocomplete="off"
+          />
+        </div>
+        <button type="button" class="btn-new-issue" aria-label="New issue">
+          + New Issue
+        </button>
+      </div>
+    </header>
+
+    <div class="tabs-section">
+      <div class="tabs" role="tablist">
+        <button
+          type="button"
+          class="tab active"
+          data-tab="all"
+          role="tab"
+          aria-selected="true"
+        >
+          All
+        </button>
+        <button
+          type="button"
+          class="tab"
+          data-tab="open"
+          role="tab"
+          aria-selected="false"
+        >
+          Open
+        </button>
+        <button
+          type="button"
+          class="tab"
+          data-tab="closed"
+          role="tab"
+          aria-selected="false"
+        >
+          Closed
+        </button>
+      </div>
+    </div>
+
+    <div class="tabs-section">
+      <div class="issue-summary">
+        <div class="summary-left">
+          <div class="summary-icon">⚙</div>
+          <div>
+            <p class="summary-count" id="issueCount">0 Issues</p>
+            <p class="summary-text">Track and manage your project issues</p>
+          </div>
+        </div>
+        <div class="summary-markers">
+          <span class="marker marker-open">
+            <span class="marker-dot"></span> Open
+          </span>
+          <span class="marker marker-closed">
+            <span class="marker-dot"></span> Closed
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <main class="main-content">
+      <div class="spinner-wrap" id="spinnerWrap" aria-live="polite">
+        <div class="spinner" id="spinner"></div>
+        <p class="spinner-text">Loading issues...</p>
+      </div>
+
+      <div class="issues-grid" id="issuesGrid" aria-label="Issue cards"></div>
+
+      <p class="empty-state" id="emptyState" hidden>No issues to display.</p>
+    </main>
+
+    <div
+      class="modal-overlay"
+      id="modalOverlay"
+      hidden
+      aria-modal="true"
+      role="dialog"
+      aria-labelledby="modalTitle"
+    >
+      <div class="modal">
+        <button
+          type="button"
+          class="modal-close"
+          id="modalClose"
+          aria-label="Close modal"
+        >
+          &times;
+        </button>
+        <h2 class="modal-title" id="modalTitle">Issue</h2>
+        <div class="modal-body" id="modalBody"></div>
+      </div>
+    </div>
+
+    <script src="js/dashboard.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  </body>
+</html>
