@@ -236,6 +236,58 @@
     });
   }
 
+  // Search Logic
+  function doSearch(query) {
+    const q = (query || "").trim();
+    lastSearchQuery = q;
+    if (!q) {
+      renderCards(filterByTab(allIssues));
+      return;
+    }
+    setLoading(true);
+    fetch(SEARCH_API + "?q=" + encodeURIComponent(q))
+      .then(function (res) {
+        return res.json();
+      })
+      .then(function (data) {
+        const list =
+          data.status === "success" && Array.isArray(data.data)
+            ? data.data
+            : [];
+        renderCards(filterByTab(list));
+      })
+      .catch(function () {
+        renderCards([]);
+      })
+      .finally(function () {
+        setLoading(false);
+      });
+  }
+
+  function initSearch() {
+    searchInput.addEventListener("input", function () {
+      const value = this.value.trim();
+      if (searchTimeout) clearTimeout(searchTimeout);
+      searchTimeout = setTimeout(function () {
+        if (value) {
+          doSearch(value);
+        } else {
+          lastSearchQuery = "";
+          renderCards(filterByTab(allIssues));
+        }
+      }, 300);
+    });
+
+    searchInput.addEventListener("keydown", function (e) {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        if (searchTimeout) clearTimeout(searchTimeout);
+        doSearch(this.value.trim());
+      }
+    });
+  }
+
+  initSearch();
   initTabs();
   loadIssues();
 })();
