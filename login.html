@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GitHub Issues Tracker - Sign In</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="./login.css" />
+  </head>
+  <body>
+    <main class="login-page">
+      <div class="login-card">
+        <header class="login-header">
+          <img
+            src="./assets/github-logo.png"
+            alt="GitHub"
+            class="logo"
+            width="64"
+            height="64"
+          />
+          <h1 class="title">GitHub Issues Tracker</h1>
+          <p class="subtitle">Sign in to manage your issues</p>
+        </header>
+
+        <form class="login-form" id="loginForm">
+          <div class="field">
+            <label for="username">Username</label>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              placeholder="Enter Username."
+              autocomplete="username"
+            />
+            <span class="hint">Default: admin</span>
+          </div>
+          <div class="field">
+            <label for="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Enter Password."
+              autocomplete="current-password"
+            />
+            <span class="hint">Default: admin123</span>
+          </div>
+          <button type="submit" class="btn-signin">Sign In</button>
+        </form>
+
+        <div class="divider">
+          <span class="divider-text">OR</span>
+        </div>
+
+        <section class="demo-credentials">
+          <p class="demo-title">Demo Credentials:</p>
+          <div class="demo-box">
+            <p><strong>Username:</strong> admin</p>
+            <p><strong>Password:</strong> admin123</p>
+          </div>
+        </section>
+      </div>
+    </main>
+    <script src="js/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  </body>
+</html>
