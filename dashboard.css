@@ -365,3 +365,58 @@
   background: #eaeef2;
   color: #24292f;
 }
+
+/* Label color variants */
+.label-bug {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.label-help-wanted {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.label-enhancement {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.label-documentation {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.label-good-first-issue {
+  background: #ede9fe;
+  color: #6d28d9;
+}
+
+.issue-card-footer {
+  margin-top: auto;
+  background: #f6f8fa;
+  border-top: 1px solid #eef2f6;
+  padding: 0.75rem 1rem;
+  border-radius: 0 0 14px 14px;
+  margin-left: -1rem;
+  margin-right: -1rem;
+  margin-bottom: -0.85rem;
+}
+
+.issue-card-meta {
+  font-size: 0.82rem;
+  color: #94a3b8;
+  line-height: 1.2;
+  margin: 0 0 0.25rem;
+}
+
+.issue-card-meta .author {
+  color: #64748b;
+  font-weight: 600;
+}
+
+.issue-card-date {
+  font-size: 0.82rem;
+  color: #94a3b8;
+  line-height: 1.2;
+}
