@@ -81,8 +81,8 @@
           <div class="issue-card-top">
             <img src="${
               issue.status === "open"
-                ? "./assets/open.png"
-                : "./assets/close.png"
+                ? "../assets/open.png"
+                : "../assets/close.png"
             }" alt="${escapeHtml(issue.status)}" class="issue-card-status-icon">
             <span class="issue-card-priority ${
               prioritySlug ? "priority-" + prioritySlug : ""
